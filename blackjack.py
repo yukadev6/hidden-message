@@ -14,7 +14,7 @@ class Card:
         self.rank = rank
     
     def __str__(self):
-        return self.rank + 'of' + self.suit
+        return self.rank + ' of ' + self.suit
 
 class Deck:
     
@@ -39,16 +39,18 @@ class Hand:
         self.value = 0   # start with zero value
         self.aces = 0    # add an attribute to keep track of aces
     
-    def add_card(self,new_card):
-        self.cards.append(new_card)
+    def add_card(self,card):
+        self.cards.append(card)
         self.value += values[card.rank]
-
+    
+        if card.rank == 'Ace':
+            self.aces += 1
+            
     def adjust_for_ace(self):
-        if self.value > 10
-            'Ace' == 1
-        else:
-            'Ace' == 11
-
+        while self.value > 21 and self.aces > 0:
+            self.value -= 10
+            self.aces -= 1
+        
 class Chips:
     
     def __init__(self):
@@ -64,12 +66,12 @@ class Chips:
 def take_bet(chips):
     while True:
         try:
-            chips.bet = int(input("What do you bet? $ "))
+            chips.bet = int(input("How much do you want to bet? "))
         except:
-            print('That is an invalid entry, please try again')    
+            print('That is an invalid entry, please enter a number.')    
         else: 
             if chips.bet > chips.total:
-                print("You don't have enough chips to bet that.",chips.total)
+                print("Sorry, you don't have enough chips to bet that. You have ${}".format(chips.total))
             else:
                 break
 
@@ -80,16 +82,17 @@ def hit(deck,hand):
 def hit_or_stand(deck,hand):
     global playing  # to control an upcoming while loop
     
-    next_play = input("Do you want to hit or stand? ")
-    if next_play == 'hit':
-        hit(deck,hand)
-    elif next_play == 'stand':
-        print("Player stands and next dealer's turn.")
-        playing = False
-    else:
-        print("Sorry, please try again.")
-        continue
-    break
+    while True:
+        next_play = input("Do you want to hit or stand? ")
+        if next_play == 'hit':
+            hit(deck,hand)
+        elif next_play == 'stand':
+            print("Player stands and dealer's turn next.")
+            playing = False
+        else:
+            print('Sorry, please try again, enter "hit" or "stand".')
+            continue
+        break
         
 def show_some(player,dealer):
     print("\nDealer's Hand:")
