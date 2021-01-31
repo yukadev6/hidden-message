@@ -66,7 +66,7 @@ class Chips:
 def take_bet(chips):
     while True:
         try:
-            chips.bet = int(input("You have ${}. How much do you want to bet? ".format(chips.total)))
+            chips.bet = int(input("You have ${}. How much do you want to bet? $".format(chips.total)))
         except:
             print('That is an invalid entry, please enter a number.')    
         else: 
@@ -128,7 +128,8 @@ def push(player,dealer):
 # Game setup
 while True:
     # Print an opening statement
-    print("Welcome to Black Jack!")
+    print("Welcome to Black Jack! Get as close to 21 as you can without going over!\n\
+    Dealer hits until they reach 17. Aces count as 1 or 11")
     
     # Create & shuffle the deck, deal two cards to each player
     new_deck = Deck()
@@ -171,7 +172,6 @@ while True:
     if player_hand.value <= 21:
         while dealer_hand.value < 17:
             hit(new_deck,dealer_hand)
-            
             break
     
         # Show all cards
@@ -189,7 +189,7 @@ while True:
             
         
     # Inform Player of their chips total 
-    print("\n Player's chip total: {}".format(player_chips.total))
+    print("\n Player's chip total: ${}".format(player_chips.total))
     # Ask to play again
     new_game = input("Would you like to play again? Enter yes or no: ")
     
